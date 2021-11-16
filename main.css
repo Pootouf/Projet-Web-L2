@@ -1,0 +1,29 @@
+table{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table{
+  border-collapse: collapse;
+}
+
+td.nomJour{
+  font-weight:bold;
+}
+
+td{
+  text-align:center;
+  padding-top:5px;
+  padding-bottom:5px;
+  border-style: solid;
+  border-width:2px;
+}
+
+td.weekend{
+  background-color:red;
+}
+
+p.nomMois{
+  text-align:center;
+  font-weight:bold;
+}
