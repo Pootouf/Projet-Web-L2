@@ -60,12 +60,17 @@ function calendrier(nombreJours, date){
 
   this.nj = nombreJours;
   this.d = date;
+  this.dateReelle = new Date();
 
   this.afficheDate = function(id){
     let div = document.getElementById(id);
     var nomMois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"];
-    var mois = d.getMonth();
-    var annee = d.getFullYear();
+    var mois = this.d.getMonth();
+    var annee = this.d.getFullYear();
+    let ptmp = div.firstChild;
+    if(ptmp != null){
+      div.removeChild(ptmp);
+    }
     let p = document.createElement('p');
     let date = document.createTextNode(nomMois[mois] + " " + annee);
     p.setAttribute("class", "nomMois");
@@ -75,9 +80,13 @@ function calendrier(nombreJours, date){
 
   this.createCalendrier = function(id){
     let div = document.getElementById(id);
+    let tabtmp = div.firstChild;
+    if(tabtmp != null){
+      div.removeChild(tabtmp);
+    }
     let tab = document.createElement('table');
     let tbody = document.createElement('tbody');
-    var datetmp = new Date(d.getFullYear(), d.getMonth(), 1);
+    var datetmp = new Date(this.d.getFullYear(), this.d.getMonth(), 1);
     var jour = datetmp.getDay();
     --jour;
     let tr = document.createElement('tr');
@@ -105,10 +114,28 @@ function calendrier(nombreJours, date){
         if((j == 6 || j == 7) && j-jour + 7*(i-1) <= nj){
           td.setAttribute("class", "weekend");
         }
+        if((j-jour + 7*(i-1) == this.dateReelle.getDate()) && this.d.getMonth() == this.dateReelle.getMonth() && this.d.getFullYear() == this.dateReelle.getFullYear() ){
+          td.setAttribute("id", "today");
+        }
       }
     }
     div.append(tab);
     tab.append(tbody);
+  }
+
+
+  this.changeMois = function(plus, id, idmois){
+    if(plus == true){
+      this.d.setMonth(this.d.getMonth() + 1);
+    }else{
+      this.d.setMonth(this.d.getMonth() - 1);
+    }
+    this.majCalendrier(id, idmois);
+  }
+
+  this.majCalendrier = function(id, idmois){
+    this.createCalendrier(id);
+    this.afficheDate(idmois);
   }
 
 }

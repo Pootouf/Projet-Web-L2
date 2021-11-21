@@ -6,11 +6,17 @@
         <meta charset ="utf-8" />
         <!-- balise de script -->
         <script src="main.js"></script>
+        <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
         <link rel="stylesheet" href="main.css" />
     </head>
 
     <body>
       <div id = "heure"></div>
+
+      <input type="button" value="<<" id="previousMonth">
+      <input type="button" value=">>" id="nextMonth">
+
+      <div id= "dateMois"></div>
       <div id= "calendrier"></div>
       <script>
         horloge();
@@ -18,9 +24,11 @@
         var d = new Date();
         var nj = nbJours(d.getMonth(), d.getFullYear());
         var c = new calendrier(nj, d);
-        c.afficheDate("calendrier");
-        c.createCalendrier("calendrier");
-
+        c.majCalendrier("calendrier", "dateMois");
+        var previousMonth = document.getElementById("previousMonth");
+        previousMonth.onclick = function(){c.changeMois(false, "calendrier", "dateMois");}
+        var nextMonth = document.getElementById("nextMonth");
+        nextMonth.onclick = function(){c.changeMois(true, "calendrier", "dateMois");};
       </script>
     </body>
 
