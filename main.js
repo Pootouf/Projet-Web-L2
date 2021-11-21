@@ -56,11 +56,11 @@ nbJours = function(m, a){
   }
 }
 
-function calendrier(nombreJours, date){
+function calendrier(){
 
-  this.nj = nombreJours;
-  this.d = date;
-  this.dateReelle = new Date();
+  this.d = new Date();
+  this.nj = nbJours(this.d.getMonth(), this.d.getFullYear());
+  this.dateReelle = d;
 
   this.afficheDate = function(id){
     let div = document.getElementById(id);
@@ -99,7 +99,7 @@ function calendrier(nombreJours, date){
       td.append(nom);
       td.setAttribute("class", "nomJour");
     }
-    for(var i = 1; i<=5; i++){
+    for(var i = 1; i<=6; i++){
       let tr = document.createElement('tr');
       tbody.append(tr);
       for(var j = 1; j<= 7; j++){
@@ -107,11 +107,11 @@ function calendrier(nombreJours, date){
         tr.append(td);
         if((i == 1 && j>= jour+1) || i!= 1){
           let date = document.createTextNode(j-jour + 7*(i-1));
-          if(j-jour + 7*(i-1) <= nj){
+          if(j-jour + 7*(i-1) <= this.nj){
             td.append(date);
           }
         }
-        if((j == 6 || j == 7) && j-jour + 7*(i-1) <= nj){
+        if((j == 6 || j == 7) && j-jour + 7*(i-1) <= this.nj){
           td.setAttribute("class", "weekend");
         }
         if((j-jour + 7*(i-1) == this.dateReelle.getDate()) && this.d.getMonth() == this.dateReelle.getMonth() && this.d.getFullYear() == this.dateReelle.getFullYear() ){
@@ -130,6 +130,7 @@ function calendrier(nombreJours, date){
     }else{
       this.d.setMonth(this.d.getMonth() - 1);
     }
+    this.nj = nbJours(this.d.getMonth(), this.d.getFullYear());
     this.majCalendrier(id, idmois);
   }
 

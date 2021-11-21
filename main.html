@@ -21,9 +21,7 @@
       <script>
         horloge();
         setInterval(horloge, 1000);
-        var d = new Date();
-        var nj = nbJours(d.getMonth(), d.getFullYear());
-        var c = new calendrier(nj, d);
+        var c = new calendrier();
         c.majCalendrier("calendrier", "dateMois");
         var previousMonth = document.getElementById("previousMonth");
         previousMonth.onclick = function(){c.changeMois(false, "calendrier", "dateMois");}
