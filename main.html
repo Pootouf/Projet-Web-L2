@@ -11,14 +11,16 @@
 
     <body>
       <div id = "heure"></div>
-      <div id="calendrier"></div>
+      <div id= "calendrier"></div>
       <script>
+        horloge();
+        setInterval(horloge, 1000);
         var d = new Date();
         var nj = nbJours(d.getMonth(), d.getFullYear());
         var c = new calendrier(nj, d);
         c.afficheDate("calendrier");
         c.createCalendrier("calendrier");
-        setTimeout(horloge, 1000);
+
       </script>
     </body>
 

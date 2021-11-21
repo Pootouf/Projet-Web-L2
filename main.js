@@ -2,6 +2,10 @@ function horloge() {
   d = new Date();
   var heure = todayDate(d);
   let div = document.getElementById('heure');
+  let text = div.firstChild;
+  if(text != null){
+    div.removeChild(text);
+  }
   let p = document.createElement('p');
   let date = document.createTextNode(heure);
   div.append(p);
