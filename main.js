@@ -104,7 +104,9 @@ function calendrier(){
       tbody.append(tr);
       for(var j = 1; j<= 7; j++){
         let td = document.createElement('td');
-        tr.append(td);
+        if(7*(i-1) - jour + 1 <= this.nj){
+          tr.append(td);
+        }
         if((i == 1 && j>= jour+1) || i!= 1){
           let date = document.createTextNode(j-jour + 7*(i-1));
           if(j-jour + 7*(i-1) <= this.nj){
@@ -116,6 +118,10 @@ function calendrier(){
         }
         if((j-jour + 7*(i-1) == this.dateReelle.getDate()) && this.d.getMonth() == this.dateReelle.getMonth() && this.d.getFullYear() == this.dateReelle.getFullYear() ){
           td.setAttribute("id", "today");
+        }
+        var dtmp = new Date(this.d.getFullYear(), this.d.getMonth(), j-jour + 7*(i-1));
+        if(j-jour + 7*(i-1) <= this.nj && estunjourferie(dtmp) != ""){
+          td.setAttribute("id", "ferie");
         }
       }
     }
@@ -138,5 +144,73 @@ function calendrier(){
     this.createCalendrier(id);
     this.afficheDate(idmois);
   }
+
+}
+
+estunjourferie = function(d){
+  var y = d.getFullYear();
+  var n = y%19;
+  var u = y%100;
+  var c = Math.floor(y/100);
+  var t = c%4;
+  var s = Math.floor(c/4);
+  var p = Math.floor((c+8)/25);
+  var q = Math.floor((c-p+1)/3);
+  var e = (19*n+c-s-q+15)%30;
+  var b = Math.floor(u/4);
+  var d2 = u%4;
+  var l = (2*t+2*b-e-d2+32)%7;
+  var h = Math.floor((n+11*e+22*l)/451);
+  var m = Math.floor((e+l-7*h+114)/31);
+  var j = (e+l-7*h+114)%31;
+  if(m==3 || m==4){
+    j = j+1;
+  }
+  if(j==0){
+    j = 1;
+  }
+
+  var mR = d.getMonth() + 1;
+  var dR = d.getDate();
+
+  var paque = new Date(y, m-1, j);
+
+  if(mR == m && dR == j){
+    return "Paques";
+  }
+
+  if(mR == 1 && dR == 1){
+    return "nAn";
+  }
+  if(mR == 5 && dR==1){
+    return "travail";
+  }
+  if(mR == 5 && dR == 8){
+    return "8mai";
+  }
+  if(mR == 7 && dR == 14){
+    return "national";
+  }
+  if(mR == 11 && dR == 11){
+    return "armistice";
+  }
+  if(mR == 8 && dR == 15){
+    return "assomption";
+  }
+  if(mR == 11 && dR == 1){
+    return "toussaint";
+  }
+  if(mR == 12 && dR == 25){
+    return "noel";
+  }
+  paque.setDate(paque.getDate() + 39);
+  if(mR == (paque.getMonth() + 1) && dR == paque.getDate()){
+    return "ascension";
+  }
+  paque.setDate(paque.getDate() + 10);
+  if(mR == (paque.getMonth() + 1) && dR == paque.getDate()){
+    return "pentecote";
+  }
+  return "";
 
 }
