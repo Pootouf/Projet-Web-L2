@@ -89,6 +89,9 @@ function calendrier(){
     var datetmp = new Date(this.d.getFullYear(), this.d.getMonth(), 1);
     var jour = datetmp.getDay();
     --jour;
+    if(jour == -1){
+      jour = 6;
+    }
     let tr = document.createElement('tr');
     tbody.append(tr);
     var nomJour = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
@@ -113,7 +116,7 @@ function calendrier(){
             td.append(date);
           }
         }
-        if((j == 6 || j == 7) && j-jour + 7*(i-1) <= this.nj){
+        if((j == 6 || j == 7) && j-jour + 7*(i-1) <= this.nj && j-jour + 7*(i-1)>0){
           td.setAttribute("class", "weekend");
         }
         if((j-jour + 7*(i-1) == this.dateReelle.getDate()) && this.d.getMonth() == this.dateReelle.getMonth() && this.d.getFullYear() == this.dateReelle.getFullYear() ){
@@ -121,7 +124,7 @@ function calendrier(){
         }
         var dtmp = new Date(this.d.getFullYear(), this.d.getMonth(), j-jour + 7*(i-1));
         if(j-jour + 7*(i-1) <= this.nj && estunjourferie(dtmp) != ""){
-          td.setAttribute("id", "ferie");
+          td.setAttribute("class", "ferie");
         }
       }
     }
@@ -136,11 +139,20 @@ function calendrier(){
     }else{
       this.d.setMonth(this.d.getMonth() - 1);
     }
-    this.nj = nbJours(this.d.getMonth(), this.d.getFullYear());
+    this.majCalendrier(id, idmois);
+  }
+
+  this.changeAnnee = function(id, idmois, mois, annee){
+    if(isNaN(annee) || annee == ""){
+      return -1;
+    }
+    this.d.setMonth(mois);
+    this.d.setFullYear(annee);
     this.majCalendrier(id, idmois);
   }
 
   this.majCalendrier = function(id, idmois){
+    this.nj = nbJours(this.d.getMonth(), this.d.getFullYear());
     this.createCalendrier(id);
     this.afficheDate(idmois);
   }
@@ -178,7 +190,6 @@ estunjourferie = function(d){
   if(mR == m && dR == j){
     return "Paques";
   }
-
   if(mR == 1 && dR == 1){
     return "nAn";
   }

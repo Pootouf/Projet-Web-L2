@@ -15,6 +15,32 @@
 
       <input type="button" value="<<" id="previousMonth">
       <input type="button" value=">>" id="nextMonth">
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+
+      Changement de mois:
+      <select name="mois" id = "mois">
+        <option value="0">Janvier</option>
+        <option value="1">Février</option>
+        <option value="2">Mars</option>
+        <option value="3">Avril</option>
+        <option value="4">Mai</option>
+        <option value="5">Juin</option>
+        <option value="6">Juillet</option>
+        <option value="7">Aout</option>
+        <option value="8">Septembre</option>
+        <option value="9">Octobre</option>
+        <option value="10">Novembre</option>
+        <option value="11">Décembre</option>
+      </select>
+      <br/>
+      <br/>
+      Changement d'année:<input type="number" id="an" required>
+      <br/>
+      <br/>
+      <input type="button" value="Confirmer" id="nouveaumois">
 
       <div id= "dateMois"></div>
       <div id= "calendrier"></div>
@@ -27,6 +53,14 @@
         previousMonth.onclick = function(){c.changeMois(false, "calendrier", "dateMois");}
         var nextMonth = document.getElementById("nextMonth");
         nextMonth.onclick = function(){c.changeMois(true, "calendrier", "dateMois");};
+        var nouveaumois = document.getElementById("nouveaumois");
+        nouveaumois.onclick = function(){
+          let mois = document.getElementById("mois");
+          mois = mois.value;
+          let annee = document.getElementById("an");
+          annee = annee.value;
+          c.changeAnnee("calendrier", "dateMois", mois, annee);
+        };
       </script>
     </body>
 
