@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <title>Inscription</title>
+        <meta charset ="utf-8" />
+        <!-- balise de script -->
+        <script src="main.js"></script>
+        <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="main.css" />
+    </head>
+
+    <body>
+      <div id="champSaisie">
+
+            <form action="verifInscri.php" method="post">
+      			<h2>Inscription</h2>
+
+      			<label for="pseudo">Identifiant :</label>
+      				<input type="text" name="pseudo" maxlength="30" id="pseudo" required/><br/>
+
+              <label for="mail">Adresse email :</label>
+
+              <input type="email" name="mail" maxlength="100" id="mail" required/><br/>
+
+      			<label for="mdp">Mot de passe :</label>
+
+      				<input type="password" name="mdp" maxlength="25" id="mdp" required/><br/>
+
+      			<label for="mdpc">Confirmer votre mot de passe :</label>
+
+      				<input type="password" name="mdpc" maxlength="25" id="mdpc" required/><br/>
+
+      			<input type="submit" id="bouton" value="S'inscrire"/>
+
+                  <!--LIEN CONNEXION.PHP -->
+      			<p class="lien">Vous êtes déjà inscrit ? <a href="connexion.php"><u>Cliquez ici</u></a></p>
+      			</form>
+
+
+      		</div>
+
+
+
+
+      </body>
+      </html>
