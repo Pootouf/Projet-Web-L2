@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<?php session_start();
+if (isset($_SESSION["pseudo"])){
+    $pseudo=$_SESSION["pseudo"];
+    $ajout=true;
+}
+?>
 <html>
 
 <head>
@@ -12,8 +18,20 @@
 
     <body>
       <div id="inscri_connex">
-          <a href='inscription.html' class='id_bouton'>Inscription</a>
-          <a href='connexion.php' class='id_bouton'>Connexion</a>
+        <?php
+        //SI L'UTILISATEUR EST CONNECTE
+        if (isset($pseudo)){
+         echo "<a href='compte.php' id='pseudo'>$pseudo</a>
+         <a href='deconnexion.php' class='id_bouton'>Déconnexion</a>"
+         ;
+
+         //SINON
+         }
+         else{echo"
+         <a href='inscription.php' class='id_bouton'>Inscription</a>
+         <a href='connexion.php' class='id_bouton'>Connexion</a>";
+         }
+         ?>
       </div>
       <div id = "heure"></div>
 

@@ -48,10 +48,10 @@ if ($mdp==$mdpc)
                     $query="INSERT INTO comptes VALUES(?,?,?)";
                     $result = $connexion->prepare($query);
                     $result->execute(array($pseudo,password_hash($mdp,PASSWORD_BCRYPT),$mail));
-                    print_r($result->errorInfo());
                     unset($result);
                     //Retour à la page d'accueil avec le compte déjà connecté
                     $_SESSION["pseudo"] = $pseudo;
+                    header("Location: main.php");
                 }
 
                 // Partie erreur : on détecte où est le problème et on renvoie l'utilisateur à la page d'inscription
