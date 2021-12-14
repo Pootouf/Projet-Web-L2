@@ -56,6 +56,8 @@ nbJours = function(m, a){
   }
 }
 
+var nomMois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"];
+var nomCompletJour = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
 function calendrier(){
 
   this.d = new Date();
@@ -64,7 +66,6 @@ function calendrier(){
 
   this.afficheDate = function(id){
     let div = document.getElementById(id);
-    var nomMois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"];
     var mois = this.d.getMonth();
     var annee = this.d.getFullYear();
     let ptmp = div.firstChild;
@@ -106,6 +107,7 @@ function calendrier(){
       let tr = document.createElement('tr');
       tbody.append(tr);
       for(var j = 1; j<= 7; j++){
+        var dtmp = new Date(this.d.getFullYear(), this.d.getMonth(), j-jour + 7*(i-1));
         let td = document.createElement('td');
         if(7*(i-1) - jour + 1 <= this.nj){
           tr.append(td);
@@ -114,6 +116,7 @@ function calendrier(){
           let date = document.createTextNode(j-jour + 7*(i-1));
           if(j-jour + 7*(i-1) <= this.nj){
             td.append(date);
+            td.dataset.date=dtmp.getFullYear()+'-'+(dtmp.getMonth()+1)+'-'+dtmp.getDate();
           }
         }
         if((j == 6 || j == 7) && j-jour + 7*(i-1) <= this.nj && j-jour + 7*(i-1)>0){
@@ -122,7 +125,7 @@ function calendrier(){
         if((j-jour + 7*(i-1) == this.dateReelle.getDate()) && this.d.getMonth() == this.dateReelle.getMonth() && this.d.getFullYear() == this.dateReelle.getFullYear() ){
           td.setAttribute("id", "today");
         }
-        var dtmp = new Date(this.d.getFullYear(), this.d.getMonth(), j-jour + 7*(i-1));
+
         if(j-jour + 7*(i-1) <= this.nj && estunjourferie(dtmp) != ""){
           td.setAttribute("class", "ferie");
         }

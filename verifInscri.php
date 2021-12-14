@@ -49,6 +49,7 @@ if ($mdp==$mdpc)
                     $result = $connexion->prepare($query);
                     $result->execute(array($pseudo,password_hash($mdp,PASSWORD_BCRYPT),$mail));
                     unset($result);
+                    $connexion=null;
                     //Retour à la page d'accueil avec le compte déjà connecté
                     $_SESSION["pseudo"] = $pseudo;
                     header("Location: main.php");
@@ -66,6 +67,7 @@ if ($mdp==$mdpc)
                     if (!empty($data2)){
                         $_SESSION["check2"] = "Adresse email";
                         }
+                        $connexion=null;
                     header( "Location: inscription.php" );
                     }
           }

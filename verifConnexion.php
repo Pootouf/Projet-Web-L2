@@ -27,6 +27,7 @@ $id = $_POST['id'];
         $data = $result->fetch(PDO::FETCH_NUM);
         unset($result);
         print_r($data);
+        $connexion=null;
 
         if (password_verify($mdp,$data[1]))
         {

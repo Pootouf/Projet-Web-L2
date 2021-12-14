@@ -3,6 +3,26 @@
 if (isset($_SESSION["pseudo"])){
     $pseudo=$_SESSION["pseudo"];
     $ajout=true;
+    try {
+      $dsn = "mysql:host=localhost;dbname=calendrier"; // machin lehucrb
+      $connexion = new PDO($dsn, "root", ""); //lehucrob 04072001
+      }
+    catch(PDOException $e) {
+      // Erreur de connexion à la bdd
+      exit("Erreur".$e->getMessage());
+      }
+      $encodage="SET NAMES utf8";
+      $req1=$connexion->query($encodage);
+      $req1->execute();
+      unset($req1);
+
+      $req = "SELECT date,content FROM agenda WHERE pseudo=?";
+      $result = $connexion->prepare($req);
+      $result->execute(array($pseudo));
+      $data = $result->fetchAll(PDO::FETCH_ASSOC);
+      $dateTab=json_encode($data);
+
+
 }
 ?>
 <html>
@@ -17,7 +37,9 @@ if (isset($_SESSION["pseudo"])){
     </head>
 
     <body>
-      <div id="inscri_connex">
+      <div id="cache"></div>
+      <header>
+        <div id="inscri_connex">
         <?php
         //SI L'UTILISATEUR EST CONNECTE
         if (isset($pseudo)){
@@ -34,7 +56,7 @@ if (isset($_SESSION["pseudo"])){
          ?>
       </div>
       <div id = "heure"></div>
-
+    </header>
       <input type="button" value="<<" id="previousMonth">
       <input type="button" value=">>" id="nextMonth">
       <br/>
@@ -83,7 +105,14 @@ if (isset($_SESSION["pseudo"])){
           annee = annee.value;
           c.changeAnnee("calendrier", "dateMois", mois, annee);
         };
+        var verifInscri = false;
+        var dateTab = <?php if (isset($pseudo)){echo json_encode($data);}else{echo "[]";}?>;
       </script>
+      <div id="carteDate"><h4 id="titreDate"></h4><div id="contentCarte">
+        <?php if(isset($_SESSION["pseudo"])){
+                  echo "<script> verifInscri=true;</script>";
+        }?></div></div>
+      <script src="main_connected.js"></script>
     </body>
 
 </html>
