@@ -16,13 +16,11 @@ if (isset($_SESSION["pseudo"])){
       $req1->execute();
       unset($req1);
 
-      $req = "SELECT date,content FROM agenda WHERE pseudo=?";
+      $req = "SELECT id,dateDebut,dateFin,heureDebut,heureFin,content FROM agenda WHERE pseudo=? ORDER BY dateDebut ASC, heureDebut ASC";
       $result = $connexion->prepare($req);
       $result->execute(array($pseudo));
       $data = $result->fetchAll(PDO::FETCH_ASSOC);
       $dateTab=json_encode($data);
-
-
 }
 ?>
 <html>
@@ -57,6 +55,13 @@ if (isset($_SESSION["pseudo"])){
       </div>
       <div id = "heure"></div>
     </header>
+    <?php
+      if(isset($_SESSION["erreur"])){
+        if($_SESSION["erreur"]="serv"){
+          echo"<script>alert('Erreur durant la connexion au serveur. Veuillez réessayer.')";
+          unset($_SESSION["erreur"]);
+        }
+      }?>
       <input type="button" value="<<" id="previousMonth">
       <input type="button" value=">>" id="nextMonth">
       <br/>
@@ -108,10 +113,10 @@ if (isset($_SESSION["pseudo"])){
         var verifInscri = false;
         var dateTab = <?php if (isset($pseudo)){echo json_encode($data);}else{echo "[]";}?>;
       </script>
-      <div id="carteDate"><h4 id="titreDate"></h4><div id="contentCarte">
+      <div id="carteDate"><img id="croix" src="img/croix.png"/><h4 id="titreDate"></h4>
         <?php if(isset($_SESSION["pseudo"])){
                   echo "<script> verifInscri=true;</script>";
-        }?></div></div>
+        }?></div>
       <script src="main_connected.js"></script>
     </body>
 

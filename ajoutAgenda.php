@@ -1,6 +1,23 @@
 <?php session_start();
-$date=$_POST["date"];
 $content=$_POST["content"];
+if (empty($_POST["heureDebut"])){
+  $_POST["heureDebut"]=null;
+}
+if (empty($_POST["heureFin"])){
+  $_POST["heureFin"]=null;
+}
+if (empty($_POST["dateFin"]) || $_POST["dateFin"]==$_POST["dateDebut"]){
+  $_POST["dateFin"]=null;
+  $surPlusieursJours=false;
+}
+else{
+  $surPlusieursJours=true;
+}
+$heureD=$_POST["heureDebut"];
+$heureF=$_POST["heureFin"];
+$dateD=$_POST["dateDebut"];
+$dateF=$_POST["dateFin"];
+
 print_r($_POST);
 try {
   $dsn = "mysql:host=localhost;dbname=calendrier"; // machin lehucrb
@@ -23,10 +40,11 @@ catch(PDOException $e) {
   unset($req1);
 
 
-  $query="INSERT INTO agenda VALUES(?,?,?)";
+  $query="INSERT INTO agenda (pseudo,dateDebut,dateFin,heureDebut,heureFin,content,surPlusieursJours) VALUES(?,?,?,?,?,?,?)";
   $result = $connexion->prepare($query);
-  $result->execute(array($_SESSION["pseudo"],$date,$content));
+  $result->execute(array($_SESSION["pseudo"],$dateD,$dateF,$heureD,$heureF,$content,$surPlusieursJours));
   print_r($result->errorInfo());
   unset($result);
   $connexion=null;
   //Retour à la page d'accueil avec le compte déjà connecté
+?>
