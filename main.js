@@ -120,14 +120,14 @@ function calendrier(){
           }
         }
         if((j == 6 || j == 7) && j-jour + 7*(i-1) <= this.nj && j-jour + 7*(i-1)>0){
-          td.setAttribute("class", "weekend");
+          td.classList.add("weekend");
         }
         if((j-jour + 7*(i-1) == this.dateReelle.getDate()) && this.d.getMonth() == this.dateReelle.getMonth() && this.d.getFullYear() == this.dateReelle.getFullYear() ){
-          td.setAttribute("id", "today");
+          td.classList.add("today");
         }
 
         if(j-jour + 7*(i-1) <= this.nj && estunjourferie(dtmp) != ""){
-          td.setAttribute("class", "ferie");
+          td.classList.add("ferie");
         }
       }
     }
