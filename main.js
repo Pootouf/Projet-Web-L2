@@ -145,7 +145,7 @@ function calendrier(){
           td.classList.add("weekend");
         }
         if((j-jour + 7*(i-1) == this.dateReelle.getDate()) && this.d.getMonth() == this.dateReelle.getMonth() && this.d.getFullYear() == this.dateReelle.getFullYear() ){
-          td.setAttribute("id", "today");
+          td.classList.add("today");
         }
 
         if(j-jour + 7*(i-1) <= this.nj && estunjourferie(dtmp) != ""){
