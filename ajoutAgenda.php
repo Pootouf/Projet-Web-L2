@@ -1,4 +1,9 @@
 <?php session_start();
+$titre=$_POST["titre"];
+$lieu=$_POST["lieu"];
+if (empty($lieu)){
+  $lieu=null;
+}
 $content=$_POST["content"];
 if (empty($_POST["heureDebut"])){
   $_POST["heureDebut"]=null;
@@ -8,10 +13,10 @@ if (empty($_POST["heureFin"])){
 }
 if (empty($_POST["dateFin"]) || $_POST["dateFin"]==$_POST["dateDebut"]){
   $_POST["dateFin"]=null;
-  $surPlusieursJours=false;
+  $surPlusieursJours=0;
 }
 else{
-  $surPlusieursJours=true;
+  $surPlusieursJours=1;
 }
 $heureD=$_POST["heureDebut"];
 $heureF=$_POST["heureFin"];
@@ -40,9 +45,9 @@ catch(PDOException $e) {
   unset($req1);
 
 
-  $query="INSERT INTO agenda (pseudo,dateDebut,dateFin,heureDebut,heureFin,content,surPlusieursJours) VALUES(?,?,?,?,?,?,?)";
+  $query="INSERT INTO agenda (pseudo,titre,lieu,dateDebut,dateFin,heureDebut,heureFin,content,surPlusieursJours) VALUES(?,?,?,?,?,?,?)";
   $result = $connexion->prepare($query);
-  $result->execute(array($_SESSION["pseudo"],$dateD,$dateF,$heureD,$heureF,$content,$surPlusieursJours));
+  $result->execute(array($_SESSION["pseudo"],$titre,$lieu,$dateD,$dateF,$heureD,$heureF,$content,$surPlusieursJours));
   print_r($result->errorInfo());
   unset($result);
   $connexion=null;

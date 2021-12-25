@@ -23,6 +23,26 @@ twoInt = function(n){
   return n.toString();
 }
 
+getEventUnJour = function(x){
+  console.log(dateTab);
+  for(let k=0;k<dateTab.length;k++){
+    if (dateTab[k]["surPlusieursJours"]==0&&dateTab[k]["dateDebut"]==x.dataset.date){
+      x.classList.add("get_event_un_jour");
+      break;
+    }
+  }
+}
+
+getEventPlusieursJours = function(x){
+  for(let k=0;k<dateTab.length;k++){
+    if (dateTab[k]["surPlusieursJours"]==1&&dateTab[k]["dateDebut"]<=x.dataset.date&&dateTab[k]["dateFin"]>=x.dataset.date){
+      x.classList.add("get_event_plusieurs_jours");
+      break;
+    }
+  }
+}
+
+
 Number.prototype.isBi = function(){
   let a = this;
   if(a % 4 != 0){
@@ -101,7 +121,7 @@ function calendrier(){
       tr.append(td);
       let nom = document.createTextNode(nomJour[i]);
       td.append(nom);
-      td.setAttribute("class", "nomJour");
+      td.classList.add("nomJour");
     }
     for(var i = 1; i<=6; i++){
       let tr = document.createElement('tr');
@@ -117,17 +137,19 @@ function calendrier(){
           if(j-jour + 7*(i-1) <= this.nj){
             td.append(date);
             td.dataset.date=dtmp.getFullYear()+'-'+(dtmp.getMonth()+1)+'-'+dtmp.getDate();
+            getEventUnJour(td);
+            getEventPlusieursJours(td);
           }
         }
         if((j == 6 || j == 7) && j-jour + 7*(i-1) <= this.nj && j-jour + 7*(i-1)>0){
-          td.setAttribute("class", "weekend");
+          td.classList.add("weekend");
         }
         if((j-jour + 7*(i-1) == this.dateReelle.getDate()) && this.d.getMonth() == this.dateReelle.getMonth() && this.d.getFullYear() == this.dateReelle.getFullYear() ){
           td.setAttribute("id", "today");
         }
 
         if(j-jour + 7*(i-1) <= this.nj && estunjourferie(dtmp) != ""){
-          td.setAttribute("class", "ferie");
+          td.classList.add("ferie");
         }
       }
     }

@@ -1,8 +1,18 @@
+html,body{
+  margin: 0;
+  padding:0;
+}
+
 body{
   font-family: Verdana;
   overflow: hidden;
 }
 
+header{
+  background-color: #2980B9;
+  padding: 8px 15px;
+  height: 10%;
+}
 table{
   margin-left: auto;
   margin-right: auto;
@@ -14,6 +24,90 @@ table{
 
 td.nomJour{
   font-weight:bold;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+
+h1{
+  width: 30%;
+  margin: auto;
+  text-align: center;
+}
+
+#heure{
+  position: absolute;
+  color: white;
+  top:-10px;
+  font-size: 24px;
+}
+
+#inscri_connex{
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  }
+
+#pseudo{
+  font-weight: bold;
+}
+
+#date_calendrier{
+  display: flex;
+  flex-direction: row;
+  width: 250px;
+  margin: auto;
+  margin-top: 10%;
+  justify-content: space-between;
+}
+
+
+.id_bouton{
+border: 3px solid white;
+color: white;
+width: 100px;
+text-align:center;
+padding:4px;
+border-radius:10px;
+text-decoration: none;
+}
+
+
+.id_bouton:hover{
+color:#2980B9;
+background-color:white;
+transition-duration:0.35s;
+}
+
+#nav_calendrier{
+  width: 35%;
+  margin: auto;
+  border: 2px solid grey;
+  border-top: 0;
+  background-color: lightgrey;
+  height: 80px;
+  padding: 20px 5px 5px 5px;
+  font-size: 22px;
+  text-align: center;
+}
+
+#nav_calendrier select{
+  font-size: 20px;
+}
+
+#nouveaumois{
+  font-size: 22px;
+  margin-top: 10px;
+}
+
+#mois{
+  margin-left: 8px;
+}
+
+#an{
+  margin-left: 8px;
 }
 
 td{
@@ -32,6 +126,13 @@ td.weekend{
   border-width:4px;
 }
 
+.get_event_un_jour{
+  color: purple;
+}
+
+.get_event_plusieurs_jours{
+  font-weight: bold;
+}
 p.nomMois{
   text-align:center;
   font-weight:bold;
@@ -41,20 +142,57 @@ td.ferie{
   background-color:cyan;
 }
 
-.id_bouton{
-border: 3px solid #641e16;
-color: #641e16;
-width: 100px;
-text-align:center;
-padding:4px;
-border-radius:10px;
-text-decoration: none;
+.vide{
+  background-color: grey;
 }
 
-.id_bouton:hover{
-color:white;
-background-color:#641e16;
-transition-duration:0.35s;
+.titreOnglet{
+  color: white;
+  padding: 10px;
+  width: 110px;
+  border-radius: 10px;
+  background-color: #2980B9;
+  position: absolute;
+    top:43%;
+}
+
+.titreOnglet:hover{
+  cursor: pointer;
+}
+
+.onglet{
+  position: absolute;
+  top:10%;
+  height: 85%;
+  width:45%;
+  background-color: #2980B9;
+  border-radius: 10px;
+}
+
+#agenda{
+  right: -45%;
+}
+
+#titreAgenda{
+  right: -1%;
+  top:43%;
+  padding-right: 25px;
+}
+
+
+#preferences{
+  left: -45%;
+}
+
+#titrePreferences{
+  padding-left: 30px;
+  width: 160px;
+  left: -1%;
+  text-align: right;
+  }
+
+#titreAge:hover{
+  cursor: pointer;
 }
 
 #cache{
@@ -106,6 +244,10 @@ border-radius: 25px;
 
 #croix:hover{
   cursor: pointer;
+}
+
+#eventDate{
+  overflow-y: scroll;
 }
 
 #rappelInscri{

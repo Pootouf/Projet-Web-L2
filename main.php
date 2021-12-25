@@ -16,7 +16,7 @@ if (isset($_SESSION["pseudo"])){
       $req1->execute();
       unset($req1);
 
-      $req = "SELECT id,dateDebut,dateFin,heureDebut,heureFin,content FROM agenda WHERE pseudo=? ORDER BY dateDebut ASC, heureDebut ASC";
+      $req = "SELECT id,titre,lieu,dateDebut,dateFin,heureDebut,heureFin,content,surPlusieursJours FROM agenda WHERE pseudo=? ORDER BY dateDebut ASC, heureDebut ASC";
       $result = $connexion->prepare($req);
       $result->execute(array($pseudo));
       $data = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -37,6 +37,8 @@ if (isset($_SESSION["pseudo"])){
     <body>
       <div id="cache"></div>
       <header>
+        <div id = "heure"></div>
+        <h1><a href="main.php">Calendrier en ligne</a></h1>
         <div id="inscri_connex">
         <?php
         //SI L'UTILISATEUR EST CONNECTE
@@ -53,7 +55,6 @@ if (isset($_SESSION["pseudo"])){
          }
          ?>
       </div>
-      <div id = "heure"></div>
     </header>
     <?php
       if(isset($_SESSION["erreur"])){
@@ -62,14 +63,19 @@ if (isset($_SESSION["pseudo"])){
           unset($_SESSION["erreur"]);
         }
       }?>
-      <input type="button" value="<<" id="previousMonth">
-      <input type="button" value=">>" id="nextMonth">
-      <br/>
-      <br/>
-      <br/>
-      <br/>
+    <h2 id="titreAgenda" class="titreOnglet">Agenda</h2>
+    <div id="agenda" class="onglet">
+      <div id="contentAgenta"></div>
+    </div>
 
-      Changement de mois:
+    <h2 id="titrePreferences" class="titreOnglet">Préférences</h2>
+    <div id="preferences" class="onglet">
+      <div id="contentPreferences"></div>
+    </div>
+
+
+    <div id="nav_calendrier">
+      Mois:
       <select name="mois" id = "mois">
         <option value="0">Janvier</option>
         <option value="1">Février</option>
@@ -84,16 +90,20 @@ if (isset($_SESSION["pseudo"])){
         <option value="10">Novembre</option>
         <option value="11">Décembre</option>
       </select>
-      <br/>
-      <br/>
-      Changement d'année:<input type="number" id="an" required>
-      <br/>
-      <br/>
-      <input type="button" value="Confirmer" id="nouveaumois">
 
-      <div id= "dateMois"></div>
+      Année:<input type="number" id="an" required>
+
+      <br/><input type="button" value="Confirmer" id="nouveaumois">
+    </div>
+     <div id="date_calendrier">
+    <input type="button" value="<<" id="previousMonth">
+    <div id= "dateMois"></div>
+     <input type="button" value=">>" id="nextMonth">
+   </div>
       <div id= "calendrier"></div>
       <script>
+      var verifInscri = false;
+      var dateTab = <?php if (isset($pseudo)){echo json_encode($data);}else{echo "[]";}?>;
         horloge();
         setInterval(horloge, 1000);
         var c = new calendrier();
@@ -110,8 +120,6 @@ if (isset($_SESSION["pseudo"])){
           annee = annee.value;
           c.changeAnnee("calendrier", "dateMois", mois, annee);
         };
-        var verifInscri = false;
-        var dateTab = <?php if (isset($pseudo)){echo json_encode($data);}else{echo "[]";}?>;
       </script>
       <div id="carteDate"><img id="croix" src="img/croix.png"/><h4 id="titreDate"></h4>
         <?php if(isset($_SESSION["pseudo"])){
