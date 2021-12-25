@@ -139,7 +139,11 @@ function calendrier(){
             td.dataset.date=dtmp.getFullYear()+'-'+(dtmp.getMonth()+1)+'-'+dtmp.getDate();
             getEventUnJour(td);
             getEventPlusieursJours(td);
+          }else{
+            td.classList.add("vide");
           }
+        }else{
+          td.classList.add("vide");
         }
         if((j == 6 || j == 7) && j-jour + 7*(i-1) <= this.nj && j-jour + 7*(i-1)>0){
           td.classList.add("weekend");
