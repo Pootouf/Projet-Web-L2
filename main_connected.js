@@ -219,7 +219,7 @@ setupInputColor($(".vide"),$("#color_vide"));
 
 
 
-  $("div[id!='color_event'] > input[type='number']").on("input",function(){
+  $(".color_changer > input[type='number']").on("input",function(){
       if ($(this).val()>255){
         $(this).val(255);
       }
