@@ -28,7 +28,7 @@ if($surPlusieursJours==0&&$heureD==null&&$heureF!=null){
   $heureF=null;
 }
 
-if($surPlusieursJours==1&&$dateD<$dateF){
+if($surPlusieursJours==1&&$dateD>$dateF){
   $mem=$dateF;
   $dateF=$dateD;
   $dateD=$mem;

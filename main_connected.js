@@ -41,15 +41,15 @@ function display_events(tab,d,mode){
       }
       else{
         contenuDate += "<p class='dateEvent'> Du "+tab[k]["dateDebut"];
-        if(dateTab[k]["heureDebut"]!=null){
+        if(tab[k]["heureDebut"]!=null){
           contenuDate += " à <i>"+tab[k]["heureDebut"].slice(0,-3)+"</i>";
         }
         contenuDate += " au "+tab[k]["dateFin"];
-        if(dateTab[k]["heureFin"]!=null){
+        if(tab[k]["heureFin"]!=null){
           contenuDate += " à <i>"+(tab[k]["heureFin"].slice(0,-3))+"</i>";
         }
       }
-      if(dateTab[k]["lieu"]!=null){
+      if(tab[k]["lieu"]!=null){
         contenuDate += "<br/>Lieu : <i>"+tab[k]["lieu"]+"</i>";
       }
       contenuDate += "</p><p class='content_event'>"+tab[k]["content"]+"</p>";
@@ -60,6 +60,7 @@ function display_events(tab,d,mode){
   return contenuDate;
 }
 
+console.log(nextTab);
 var nextEvents=display_events(nextTab,null,"next");
 if(nextEvents==" "){
   $("#agenda").append("<p id='no_next'>Vous n'avez pas d'évenements à venir</p>");

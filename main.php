@@ -59,7 +59,7 @@ if (isset($_SESSION["pseudo"])){
         <?php
         //SI L'UTILISATEUR EST CONNECTE
         if (isset($pseudo)){
-         echo "<a href='compte.php' id='pseudo'>$pseudo</a>
+         echo "<a id='pseudo'>$pseudo</a>
          <a href='deconnexion.php' class='id_bouton'>Déconnexion</a>"
          ;
 

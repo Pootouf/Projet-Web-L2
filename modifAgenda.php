@@ -64,6 +64,6 @@ catch(PDOException $e) {
   unset($result);
   $connexion=null;
   //Retour à la page d'accueil avec le compte déjà connecté
-  /*$_SESSION["retour"] = "ajout";
-  header( "Location: main.php" );*/
+  $_SESSION["retour"] = "ajout";
+  header( "Location: main.php" );
 ?>
