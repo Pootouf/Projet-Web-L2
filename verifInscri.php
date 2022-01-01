@@ -49,6 +49,11 @@ if ($mdp==$mdpc)
                     $result = $connexion->prepare($query);
                     $result->execute(array($pseudo,password_hash($mdp,PASSWORD_BCRYPT),$mail));
                     unset($result);
+
+                    $query="INSERT INTO preferences (pseudo) VALUES(?)";
+                    $result = $connexion->prepare($query);
+                    $result->execute(array($pseudo));
+                    unset($result);
                     $connexion=null;
                     //Retour à la page d'accueil avec le compte déjà connecté
                     $_SESSION["pseudo"] = $pseudo;

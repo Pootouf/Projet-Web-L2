@@ -1,0 +1,47 @@
+@import url("header.css");
+
+#champSaisie{
+  float: left;
+  margin-top: 10%;
+  margin-left: 25%;
+  width: 25%;
+}
+
+h2{
+  color: #2980B9;
+}
+
+input{
+  margin-bottom: 10px;
+  margin-top: 5px;
+  width: 300px;
+}
+
+label{
+margin-left: 8px;
+}
+
+#bouton{
+  font-size: 18px;
+  margin-left: 20px;
+  width: auto;
+}
+
+.lien{
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.lien a{
+  color: red;
+}
+
+#msgerreur{
+  border: 2px solid red;
+  padding: 5px;
+  float:right;
+  margin-top: 15%;
+  margin-right: 27%;
+  color: red;
+  text-align: center;
+}

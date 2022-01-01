@@ -22,7 +22,7 @@ $heureD=$_POST["heureDebut"];
 $heureF=$_POST["heureFin"];
 $dateD=$_POST["dateDebut"];
 $dateF=$_POST["dateFin"];
-
+$id=$_POST["id"];
 if($surPlusieursJours==0&&$heureD==null&&$heureF!=null){
   $heureD=$heureF;
   $heureF=null;
@@ -57,12 +57,13 @@ catch(PDOException $e) {
 
 
 
-  $query="INSERT INTO agenda (pseudo,titre,lieu,dateDebut,dateFin,heureDebut,heureFin,content,surPlusieursJours) VALUES(?,?,?,?,?,?,?,?,?)";
+  $query="UPDATE agenda SET titre=?,lieu=?,dateDebut=?,dateFin=?,heureDebut=?,heureFin=?,content=?,surPlusieursJours=? WHERE id=?";
   $result = $connexion->prepare($query);
-  $result->execute(array($_SESSION["pseudo"],$titre,$lieu,$dateD,$dateF,$heureD,$heureF,$content,$surPlusieursJours));
+  $result->execute(array($titre,$lieu,$dateD,$dateF,$heureD,$heureF,$content,$surPlusieursJours,$id));
+  print_r($result->errorInfo());
   unset($result);
   $connexion=null;
   //Retour à la page d'accueil avec le compte déjà connecté
-  $_SESSION["retour"] = "ajout";
-  header( "Location: main.php" );
+  /*$_SESSION["retour"] = "ajout";
+  header( "Location: main.php" );*/
 ?>

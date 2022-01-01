@@ -23,24 +23,27 @@ twoInt = function(n){
   return n.toString();
 }
 
-getEventUnJour = function(x){
-  console.log(dateTab);
+getEvent = function(x){
   for(let k=0;k<dateTab.length;k++){
-    if (dateTab[k]["surPlusieursJours"]==0&&dateTab[k]["dateDebut"]==x.dataset.date){
-      x.classList.add("get_event_un_jour");
+    if (dateTab[k]["dateDebut"]==x.dataset.date || dateTab[k]["dateDebut"]<=x.dataset.date&&dateTab[k]["dateFin"]>=x.dataset.date ){
+      x.firstChild.classList.add("get_event");
+      if(verifInscri){
+        if(pref[0]["coul_event"]!=null){
+          x.firstChild.style.color=pref[0]["coul_event"];
+        }
+        if(pref[0]["event_underlined"]==1){
+          x.firstChild.style.textDecoration="underline";
+        }
+        if(pref[0]["event_bolded"]==1){
+          x.firstChild.style.fontWeight="bold";
+        }
+      }
       break;
     }
   }
 }
 
-getEventPlusieursJours = function(x){
-  for(let k=0;k<dateTab.length;k++){
-    if (dateTab[k]["surPlusieursJours"]==1&&dateTab[k]["dateDebut"]<=x.dataset.date&&dateTab[k]["dateFin"]>=x.dataset.date){
-      x.classList.add("get_event_plusieurs_jours");
-      break;
-    }
-  }
-}
+
 
 
 Number.prototype.isBi = function(){
@@ -135,18 +138,34 @@ function calendrier(){
         if((i == 1 && j>= jour+1) || i!= 1){
           let date = document.createTextNode(j-jour + 7*(i-1));
           if(j-jour + 7*(i-1) <= this.nj){
-            td.append(date);
-            td.dataset.date=dtmp.getFullYear()+'-'+(dtmp.getMonth()+1)+'-'+dtmp.getDate();
-            getEventUnJour(td);
-            getEventPlusieursJours(td);
+            let p = document.createElement('p');
+            td.append(p);
+            p.append(date);
+            td.dataset.date=dtmp.getFullYear()+'-'+('0'+(dtmp.getMonth()+1)).slice(-2)+'-'+('0'+dtmp.getDate()).slice(-2);
+            getEvent(td);
           }else{
             td.classList.add("vide");
+            if(verifInscri&&pref[0]["coul_vide"]!=null){
+              td.style.backgroundColor=pref[0]["coul_vide"];
+            }
           }
         }else{
           td.classList.add("vide");
+          if(verifInscri&&pref[0]["coul_vide"]!=null){
+            td.style.backgroundColor=pref[0]["coul_vide"];
+          }
         }
-        if((j == 6 || j == 7) && j-jour + 7*(i-1) <= this.nj && j-jour + 7*(i-1)>0){
-          td.classList.add("weekend");
+        if((j == 6) && j-jour + 7*(i-1) <= this.nj && j-jour + 7*(i-1)>0){
+          td.classList.add("samedi");
+          if(verifInscri&&pref[0]["coul_samedi"]!=null){
+            td.style.backgroundColor=pref[0]["coul_samedi"];
+          }
+        }
+        if((j == 7) && j-jour + 7*(i-1) <= this.nj && j-jour + 7*(i-1)>0){
+          td.classList.add("dimanche");
+          if(verifInscri&&pref[0]["coul_dimanche"]!=null){
+            td.style.backgroundColor=pref[0]["coul_dimanche"];
+          }
         }
         if((j-jour + 7*(i-1) == this.dateReelle.getDate()) && this.d.getMonth() == this.dateReelle.getMonth() && this.d.getFullYear() == this.dateReelle.getFullYear() ){
           td.classList.add("today");
@@ -154,12 +173,22 @@ function calendrier(){
 
         if(j-jour + 7*(i-1) <= this.nj && estunjourferie(dtmp) != ""){
           td.classList.add("ferie");
+          if(verifInscri&&pref[0]["coul_ferie"]!=null){
+            td.style.backgroundColor=pref[0]["coul_ferie"];
+          }
         }
       }
     }
     div.append(tab);
     tab.append(tbody);
-  }
+
+}
+
+
+
+
+
+
 
 
   this.changeMois = function(plus, id, idmois){

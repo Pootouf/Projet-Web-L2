@@ -1,18 +1,6 @@
-html,body{
-  margin: 0;
-  padding:0;
-}
+@import url("header.css");
 
-body{
-  font-family: Verdana;
-  overflow: hidden;
-}
 
-header{
-  background-color: #2980B9;
-  padding: 8px 15px;
-  height: 10%;
-}
 table{
   margin-left: auto;
   margin-right: auto;
@@ -26,33 +14,10 @@ td.nomJour{
   font-weight:bold;
 }
 
-a{
-  text-decoration: none;
-  color: white;
+td p{
+  margin: 0;
 }
 
-h1{
-  width: 30%;
-  margin: auto;
-  text-align: center;
-}
-
-#heure{
-  position: absolute;
-  color: white;
-  top:-10px;
-  font-size: 24px;
-}
-
-#inscri_connex{
-  position: absolute;
-  top: 20px;
-  right: 15px;
-  }
-
-#pseudo{
-  font-weight: bold;
-}
 
 #date_calendrier{
   display: flex;
@@ -64,22 +29,7 @@ h1{
 }
 
 
-.id_bouton{
-border: 3px solid white;
-color: white;
-width: 100px;
-text-align:center;
-padding:4px;
-border-radius:10px;
-text-decoration: none;
-}
 
-
-.id_bouton:hover{
-color:#2980B9;
-background-color:white;
-transition-duration:0.35s;
-}
 
 #nav_calendrier{
   width: 35%;
@@ -118,21 +68,17 @@ td{
   border-width:2px;
 }
 
-td.weekend{
+.samedi{
   background-color:red;
 }
 
-#today{
+.dimanche{
+  background-color: crimson;
+}
+.today{
   border-width:4px;
 }
 
-.get_event_un_jour{
-  color: purple;
-}
-
-.get_event_plusieurs_jours{
-  font-weight: bold;
-}
 p.nomMois{
   text-align:center;
   font-weight:bold;
@@ -144,6 +90,10 @@ td.ferie{
 
 .vide{
   background-color: grey;
+}
+
+.get_event{
+  color: crimson;
 }
 
 .titreOnglet{
@@ -164,13 +114,16 @@ td.ferie{
   position: absolute;
   top:10%;
   height: 85%;
-  width:45%;
+  width:40%;
   background-color: #2980B9;
-  border-radius: 10px;
+  padding-top: 15px;
+  box-sizing: border-box;
 }
 
 #agenda{
-  right: -45%;
+  right: -40%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 #titreAgenda{
@@ -179,9 +132,29 @@ td.ferie{
   padding-right: 25px;
 }
 
+#liste_nextEvents{
+  overflow-y: scroll;
+  width: 80%;
+  margin: auto;
+  height: 60%;
+}
+
+#no_next{
+  text-align: center;
+  font-size: 22px;
+  color:white;
+}
 
 #preferences{
-  left: -45%;
+  left: -40%;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  text-align: center;
+}
+
+#preferences input[type='submit']{
+  font-size: 22px;
+  margin: auto;
 }
 
 #titrePreferences{
@@ -191,8 +164,66 @@ td.ferie{
   text-align: right;
   }
 
-#titreAge:hover{
-  cursor: pointer;
+#next_event_nb{
+  text-align:center;
+}
+
+#event_preview{
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  border: 2px solid white;
+  padding: 10px;
+}
+
+.pref{
+  display: flex;
+  justify-content: space-between;
+  width:80%;
+  margin: auto;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  align-items: center;
+}
+
+
+.onglet h2{
+  text-align: center;
+  color: white;
+}
+
+.onglet label{
+  color: white;
+}
+.color_changer{
+  text-align: center;
+}
+
+.color_changer input[type='number']{
+  width: 50px;
+}
+
+.r_number{
+  background-color: red;
+  color:white;
+}
+
+.g_number{
+  background-color: green;
+  color:white;
+}
+
+.b_number{
+  background-color: blue;
+  color:white;
+}
+
+.preview_color{
+  width: 40px;
+  height: 40px;
+  border: 2px solid black;
+  background-color: white;
+  margin: 5px auto ;
 }
 
 #cache{
@@ -207,7 +238,7 @@ td.ferie{
 }
 
 #carteDate{
-  top: 200%;
+top: 200%;
 bottom: 0;
 width: 75%;
 height: 75%;
@@ -215,8 +246,10 @@ margin: auto;
 position: absolute;
 left: 0;
 right: 0;
-border:20px solid #58D68D;
+border:20px solid #2980B9;
 border-radius: 25px;
+background-color: #2980B9;
+color: white;
 }
 
 
@@ -226,36 +259,68 @@ border-radius: 25px;
   justify-content: space-between;
   height: 95%;
   width: 100%;
-  background-color: white;
+  margin-top: 20px;
 }
 
-#contentCarte div{
-
-  width: 45%;
-  height:70%;
+.titreEvent{
+  font-size: 20px;
 }
+
+.dateEvent{
+  margin-top: 2px;
+}
+
+.form input, textarea{
+  margin-bottom: 20px;
+}
+
+.form label{
+  font-weight: bold;
+}
+
+.form input[type='submit']{
+font-size: 20px;
+}
+
+.form input[type='text']{
+width: 250px;
+}
+.form{
+  text-align: center;
+}
+
 
 #croix{
   position: absolute;
   width: 25px;
   right: 9px;
-  top : 9 px;
 }
 
 #croix:hover{
   cursor: pointer;
 }
 
-#eventDate{
+#liste_events{
   overflow-y: scroll;
+  height: 80%;
 }
 
-#rappelInscri{
-  text-align: center;
-  background-color: white;
+.container_carte{
+  border: 3px solid white;
   height: 50%;
   width: 85%;
-  margin:auto;
+  margin:0 auto;
+  border-radius: 15px;
+  width: 45%;
+  height: 80%;
+  padding: 15px;
+}
+
+.event{
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border-bottom: 2px solid black;
 }
 
 
@@ -269,7 +334,7 @@ h4{
   font-size: 32px;
   margin-top: 0;
   margin-bottom: 25px;
-  background-color: #58D68D;
+  background-color: #2980B9;
   width: 100%;
   margin : auto;
   padding-bottom: 3px;
@@ -278,4 +343,20 @@ h4{
 h5{
   margin-top: 0;
   text-align: center;
+  font-size: 24px;  ;
+}
+
+#form_modif{
+  width: 500px;
+  height: 400px;
+  background-color: #2980B9;
+  position: absolute;
+  top:20%;
+  left:37%;
+  border-radius: 15px;
+  text-align: center;
+  display: none;
+  color: white;
+  padding: 5px;
+  z-index: 4;
 }
